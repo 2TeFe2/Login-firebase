@@ -1,13 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Firebase CRUD with Authentication</title>
-    <link rel="stylesheet" href="styles/styles.css">
-    <script src="scripts/config.js"></script>
-    <script type="module" defer>
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js";
 
 import { getFirestore, collection, addDoc, getDocs } from 'https://www.gstatic.com/firebasejs/10.7.2/firebase-firestore.js';
 
@@ -17,7 +8,7 @@ const db = getFirestore(app);
 const fetchProjects = async () => {
     try {
         console.log("Getting Users")
-      const querySnapshot = await getDocs(collection(db, 'users'));
+      const querySnapshot = await getDocs(collection(db, 'login'));
       console.log(querySnapshot)
       projectsList.innerHTML = ''; // Clear existing list before populating
       querySnapshot.forEach((doc) => {
@@ -41,7 +32,7 @@ const fetchProjects = async () => {
 
     // Add the project to Firestore
     try {
-      const docRef = await addDoc(collection(db, 'users'), {
+      const docRef = await addDoc(collection(db, 'login'), {
         email: email,
         password: password
       });
@@ -62,28 +53,3 @@ const fetchProjects = async () => {
   // Call fetchProjects after initialization
   fetchProjects();
 
-
-    </script>
-</head>
-<body>
-    <div class="container">
-        <h1>Firebase CRUD with Authentication</h1>
-        <form id="user-auth">
-            <input type="email" name="email" id="email" placeholder="Email">
-            <input type="password" name="password" id="password" placeholder="Password">
-            <button type="submit" id="login">Login</button>
-            <button type="submit" id="register">Register</button>
-            <button type="submit" id="logout">Logout</button>
-        </form>
-        <ul id="users"></ul>
-        <div id="crud-operations">
-            <input type="text" id="data-input" placeholder="Enter data">
-            <button id="create">Create</button>
-            <button type="submit" id="read">Read</button>
-            <button type="submit" id="update">Update</button>
-            <button type="submit" id="delete">Delete</button>
-        </div>
-        <div id="data-display"></div>
-    </div>
-</body>
-</html>
